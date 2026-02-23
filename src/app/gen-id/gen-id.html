@@ -1,0 +1,14 @@
+<div class="header">
+  <h2>{{ genDetails.name }}</h2>
+  <div class="region">
+    Region: <strong>{{ genDetails.main_region?.name }}</strong>
+  </div>
+  
+</div>
+
+
+     <a [routerLink]="['abilities']">Abilities</a> 
+     <a [routerLink]="['moves']">Moves</a> 
+     <a [routerLink]="['pokedex']">Pokedex</a>
+
+<router-outlet></router-outlet>
