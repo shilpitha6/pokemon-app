@@ -1,55 +1,68 @@
-import { Component, Input, OnInit } from '@angular/core'; 
-import { Router, RouterLink, RouterOutlet } from '@angular/router'; 
-import { HttpClient } from '@angular/common/http'; 
-import { ActivatedRoute } from '@angular/router'; 
-import { CommonModule } from '@angular/common'; 
-import { PokedexService } from './pokedex.services'; 
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet, ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { PokedexService } from './pokedex.services';
 import { CardPokedex } from './card-pokedex/card-pokedex';
 
-@Component({ 
-    selector: 'app-pokedex', 
-    standalone:true, 
-    imports: [RouterLink,CommonModule,RouterOutlet,CardPokedex], 
-    templateUrl: './pokedex.html', 
-    styleUrl: './pokedex.css', 
-  })
-    
-export class Pokedex implements OnInit { 
-  @Input() pokemonId!: number;
-  pokemonSpecies: any[] = []; 
-  selectedGeneration: number = 2; 
-  constructor(private pokedexService: PokedexService, private httpClient:HttpClient) {
-    
-  } 
-  ngOnInit(): void { 
-    
-    this.loadData(); 
-  } 
-  loadData() { 
-    this.pokedexService.getPokemonByGeneration
-    (this.selectedGeneration) 
-    .subscribe({ next: (response) => { 
-      this.pokemonSpecies = response.pokemon_species; }, 
-        error: (err) => 
-          console.error(err)
-       }); 
-    } 
-    
-    changeGeneration(genId: number) {
-      this.selectedGeneration = genId; 
-      this.loadData(); 
+@Component({
+  selector: 'app-pokedex',
+  standalone: true,
+  imports: [ 
+    CommonModule, 
+    CardPokedex],
+  templateUrl: './pokedex.html',
+  styleUrl: './pokedex.css',
+})
+
+export class Pokedex implements OnInit {
+  pokemonSpecies: any[] = [];
+  genId: number = 1;
+  constructor(
+    //service are used to call apis
+    private pokedexService: PokedexService,
+    //used to read Url parameters
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+
+    // to extarct id
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+
+      //converting id(string) to number and fetch the pokedex of that generation
+      if (id) {
+        this.genId = +id;
+        this.loadPokemonSpecies(this.genId);
+        // console.log(this.genId);
       }
-    
-    getIdFromUrl(url: string): number { 
-      const parts = url.split('/'); 
-      return +parts[parts.length - 2]; 
-}
-    
-    }
+      else{
+        console.log('no id provided');
+      }
+    });
 
+  }
 
-    
+  // takes generation id and calls pokedexService to 
+  // store the pokemon_species 
+  loadPokemonSpecies(id: number) {
+    this.pokedexService.getPokemonByGeneration(id)
+    .subscribe(data => {
 
- 
+      this.pokemonSpecies = data.pokemon_species.map
+      ((pokemon: any) => {
+        const urlParts = pokemon.url.split('/');
+        const pokemonId = +urlParts[urlParts.length - 2];
+        const newPokemon = {
+          name: pokemon.name,
+          id:pokemonId, 
+        };
+        return newPokemon;
+      });
+    });
+  }
+
   
-     
+
+  
+}

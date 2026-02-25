@@ -12,11 +12,19 @@
 }
 
 
+.card img {
+  border-radius: 5px 5px 0 0; 
+  width: 100%;
+  height: auto;
+}
 
 
 .grid {
   padding: 30px 30px;
 }
+
+
+
 
 
 

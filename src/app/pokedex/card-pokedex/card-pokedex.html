@@ -1,15 +1,24 @@
 <div class="card">
   
   <div class="grid">
-  
-      
-      <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemonId + '.png'" />
-     
-    <b> {{ name | titlecase }}</b>
-    <p>type</p>
+
+
     
+    
+<b>{{id}}</b>
+    <img *ngIf="spriteUrl" [src]="spriteUrl" [alt]="name" class="pokemon-sprite" />
+    <b> {{ name | titlecase }}</b>
+    
+    <div class="types">
+      <span *ngFor="let t of types"
+            [style.background]="t.color"
+            class="type-badge">
+        {{ t.type }}
+      </span>
+    </div>
   </div>
 </div>
+
 
 
 

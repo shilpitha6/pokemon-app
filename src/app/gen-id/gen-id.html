@@ -1,10 +1,10 @@
-<div class="header">
-  <h2>{{ genDetails.name }}</h2>
-  <div class="region">
-    Region: <strong>{{ genDetails.main_region?.name }}</strong>
-  </div>
-  
-</div>
+<!-- <div class="header"> -->
+
+
+  <p *ngIf="main_region">
+  Main Region: {{ main_region }}
+</p>
+
 <ul>
   <li>
      <a [routerLink]="['abilities']">Abilities</a>

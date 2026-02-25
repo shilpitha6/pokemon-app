@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, Params, RouterOutlet } from '@angular/router';
-import { Abilities } from "../abilities/abilities";
-import { Moves } from "../moves/moves";
-import { Pokedex } from "../pokedex/pokedex";
+import { Component } from '@angular/core';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { GenerationsService } from './generations.services';
 
 @Component({
   selector: 'app-gen-id',
@@ -12,37 +10,43 @@ import { Pokedex } from "../pokedex/pokedex";
   templateUrl: './gen-id.html',
   styleUrl: './gen-id.css',
 })
-export class GenId implements OnInit {
-  genDetails: any = [];
+export class GenId  {
+id: string | null = '';
 
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute
-  ) {}
+main_region: any;
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      if (id) {
-        const url = `https://pokeapi.co/api/v2/generation/${id}`;
-        this.loadData(url);
+// api url is reading from generations service
+// loads the generations
+  constructor(private route: ActivatedRoute,
+    private generationservice: GenerationsService) {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      console.log(this.id);
+
+       if (this.id) {
+        this.loadGeneration(this.id);
       }
-    });
+    })
+  }
+
   
-  }
+ //method to get the regions
 
-  loadData(url: string) {
-    this.http.get(url).subscribe({
-      next: (data: any) => {
-        this.genDetails = data;
-        console.log(data);
-        
-      },
-      error: (err: any) => {
-        console.error('fetch error', err);
-      }
+  loadGeneration(id: string) {
+     this.generationservice.GenerationsbyId(id).subscribe(data => {
+      console.log(data);
+      this.main_region = data.main_region.name;
     });
   }
-}
+    }
+  
+
+  
+  
+
+
+  
+  
+
 
 

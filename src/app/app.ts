@@ -8,7 +8,7 @@ import { Pokedex } from './pokedex/pokedex';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Generations, Moves, Abilities, Pokedex, RouterOutlet],
+  imports: [Header, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {  Routes } from '@angular/router';
 import { Generations } from './generations/generations';
 import { Moves } from './moves/moves';
 import { Berries } from './berries/berries';
@@ -8,22 +8,32 @@ import { Pokedex } from './pokedex/pokedex';
 import { GenId } from './gen-id/gen-id';
 
 
+
 export const routes: Routes = [
     
     {
       path: 'generations',
       component: Generations,
-      
+      children:[
+         {
+      path:':id',
+      component:GenId,
     },
     {
-      path:'generations/:id',
-      component:GenId,
-      children: [ 
-      { path: 'abilities', component: Abilities }, 
-      { path: 'moves', component: Moves }, 
-      { path: 'pokedex', component: Pokedex } ]
+      path:':id/pokedex',
+      component:Pokedex
     },
-    
+    {
+      path:':id/abilities',
+      component:Abilities
+    },
+    {
+      path:':id/moves',
+      component:Moves
+    },
+      ]
+    },
+  
     {
       path: 'berries',
       component: Berries,

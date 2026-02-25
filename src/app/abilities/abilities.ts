@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-abilities',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './abilities.html',
   styleUrl: './abilities.css',
 })

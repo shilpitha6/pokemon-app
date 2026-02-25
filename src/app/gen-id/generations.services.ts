@@ -1,4 +1,4 @@
-import { Generations } from "./generations";
+import { Generations } from "../generations/generations";
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -8,6 +8,7 @@ import { Observable } from "rxjs";
 }) // provding service in whole app
 
 export class GenerationsService {
+    
 
     private apiUrl='https://pokeapi.co/api/v2/generation';
 
@@ -15,9 +16,9 @@ export class GenerationsService {
 
     }
 
-    Generations():Observable<any>
+    GenerationsbyId(id: string):Observable<any>
 {
-    return this.http.get(this.apiUrl);
+    return this.http.get(`${this.apiUrl}/${id}`);
 }   
 }
 

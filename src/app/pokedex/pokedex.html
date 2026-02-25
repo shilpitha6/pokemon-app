@@ -1,9 +1,13 @@
 
-
 <div class="grid">
   <app-card-pokedex
-    *ngFor="let pokemon of pokemonSpecies"
-    [name]="pokemon.name"
-    []="getIdFromUrl(pokemon.url)" >
+    *ngFor="let p of pokemonSpecies"
+    [id]="p.pokemonId"
+    [name]="p.name"
+    >
   </app-card-pokedex>
 </div>
+
+
+
+<span>test guhjerf {{pokemonSpecies.length}}</span>
