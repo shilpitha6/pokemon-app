@@ -3,16 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { GenerationsService } from './generations.services';
+import { Generations } from '../generations/generations';
 
 @Component({
   selector: 'app-gen-id',
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  standalone:true,
+  imports: [CommonModule, RouterOutlet, RouterLink,Generations],
   templateUrl: './gen-id.html',
   styleUrl: './gen-id.css',
 })
 export class GenId  {
-id: string | null = '';
 
+id: string | null = '';
 main_region: any;
 
 // api url is reading from generations service
@@ -27,6 +29,8 @@ main_region: any;
         this.loadGeneration(this.id);
       }
     })
+
+    
   }
 
   

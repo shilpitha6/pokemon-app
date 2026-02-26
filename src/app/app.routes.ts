@@ -1,4 +1,4 @@
-import {  Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { Generations } from './generations/generations';
 import { Moves } from './moves/moves';
 import { Berries } from './berries/berries';
@@ -6,6 +6,7 @@ import { Encounters } from './encounters/encounters';
 import { Abilities } from './abilities/abilities';
 import { Pokedex } from './pokedex/pokedex';
 import { GenId } from './gen-id/gen-id';
+
 
 
 

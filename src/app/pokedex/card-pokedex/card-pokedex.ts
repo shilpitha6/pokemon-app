@@ -1,21 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PokedexService } from '../pokedex.services';
 import { CommonModule } from '@angular/common';
-
+import { PokedexService } from '../pokedex.services';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-card-pokedex',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './card-pokedex.html',
   styleUrl: './card-pokedex.css',
 })
-export class CardPokedex implements OnInit{
+export class CardPokedex implements OnInit {
 
- @Input() name!: string;
- @Input() id!:number;
- spriteUrl: string = '';
- types: { type: string, color: string }[] = [];
+  @Input() name!: string;
+  @Input() id!: number;
+
+  pokemonTypes$!: Observable<{ 
+    types: { type: string; color: string }[], 
+    spriteUrl: string }>;
 
   TYPE_COLORS: { [key: string]: string } = {
     fire: '#EE8130',
@@ -41,25 +43,17 @@ export class CardPokedex implements OnInit{
   constructor(private pokedexService: PokedexService) {}
 
   ngOnInit(): void {
-    this.loadPokemonData();
+    if (this.name) {
+      this.pokemonTypes$ = this.pokedexService.getPokemonTypes(this.name).pipe(
+        map(res => ({
+          types: res.types.map((t: any) => ({
+            type: t.type,
+            color: this.TYPE_COLORS[t.type] || '#777'
+          })),
+          spriteUrl: res.sprites.front_default || ''
+        }))
+      );
+    }
   }
 
-  loadPokemonData() {
-    if (!this.name) return;
-
-    this.pokedexService.getPokemonTypes(this.name).subscribe({
-      next: (res: any) => {
-        
-        this.types = res.types.map((t: any) => ({
-          type: t.type.name,
-          color: this.TYPE_COLORS[t.type.name] || '#777'
-        }));
-
-        this.spriteUrl = res.sprites.front_default || ''; 
-      },
-      error: (err) => {
-        console.error('Not Avaiable', this.name, err);
-      }
-    });
-  }
 }

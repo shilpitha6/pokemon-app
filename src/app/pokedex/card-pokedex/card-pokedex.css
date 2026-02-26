@@ -18,6 +18,19 @@
   height: auto;
 }
 
+.types {
+  display: flex;
+  margin-top: 20px;
+}
+
+.types.single {
+  justify-content: center;
+}
+
+.types.double {
+  justify-content: space-between;
+}
+
 
 .grid {
   padding: 30px 30px;

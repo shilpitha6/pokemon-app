@@ -1,27 +1,24 @@
-<div class="card">
-  
-  <div class="grid">
+<div class="card" *ngIf="pokemonTypes$ | async as pokemon">
 
+  <b>{{ id }}</b>
 
-    
-    
-<b>{{id}}</b>
-    <img *ngIf="spriteUrl" [src]="spriteUrl" [alt]="name" class="pokemon-sprite" />
-    <b> {{ name | titlecase }}</b>
-    
-    <div class="types">
-      <span *ngFor="let t of types"
-            [style.background]="t.color"
-            class="type-badge">
-        {{ t.type }}
-      </span>
-    </div>
+  <img 
+    *ngIf="pokemon.spriteUrl"
+    [src]="pokemon.spriteUrl"
+    [alt]="name"
+    class="pokemon-sprite"
+  />
+
+  <b>{{ name | titlecase }}</b>
+
+  <div class="types" [ngClass]="pokemon.types.length === 1 ? 'single' : 'double'">
+    <span 
+      *ngFor="let t of pokemon.types"
+      [style.background]="t.color"
+      class="type-badge"
+    >
+      {{ t.type }}
+    </span>
   </div>
+
 </div>
-
-
-
-
-
-
-
