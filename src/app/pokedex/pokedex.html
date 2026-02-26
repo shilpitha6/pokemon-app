@@ -15,8 +15,5 @@
 <!--We are having issues with the change detection, which is why they do not always show up-->
 <!--Instead of storing the data in an array, we are storing the observable in a variable-->
 <!--When we need to show the data, we can use this async pipe, which will allow us to use the data in the observable-->
-<div *ngIf="pokemonSpecies$ | async as mypokemon; else loading">
-  {{ mypokemon.length }} items
-  <div *ngFor="let p of mypokemon">{{ p.name }}</div>
-</div>
-<ng-template #loading>Loading...</ng-template>
+<span>{{pokemonSpecies.length}}</span>
+<span *ngFor="let p of pokemonSpecies">{{p.name}}<br /></span>

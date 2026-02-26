@@ -31,59 +31,11 @@ export class Pokedex implements OnInit {
       //converting id(string) to number and fetch the pokedex of that generation
       if (id) {
         this.genId = +id;
-        this.pokemonSpecies$ = this.pokedexService.getPokemonByGeneration(this.genId);
-        return;
       }
-      else{
-        console.log('no id provided');
-      }
+      this.pokedexService.getPokemonByGeneration(this.genId).subscribe(x => this.pokemonSpecies = x);
     });
   }
 
   ngOnInit(): void {
-
-    // to extarct id
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-
-      //converting id(string) to number and fetch the pokedex of that generation
-      if (id) {
-        this.genId = +id;
-        this.pokedexService.getPokemonByGeneration(this.genId).subscribe(x => {
-        console.log('Setting species', x)
-        this.pokemonSpecies = [...x]
-      })
-        // console.log(this.genId);
-      }
-      else{
-        console.log('no id provided');
-      }
-    });
-
   }
-
-  // takes generation id and calls pokedexService to 
-  // store the pokemon_species 
-  loadPokemonSpecies(id: number) {
-
-
-    // this.pokedexService.getPokemonByGeneration(id)
-    // .subscribe(data => {
-
-    //   this.pokemonSpecies = data.pokemon_species.map
-    //   ((pokemon: any) => {
-    //     const urlParts = pokemon.url.split('/');
-    //     const pokemonId = +urlParts[urlParts.length - 2];
-    //     const newPokemon = {
-    //       name: pokemon.name,
-    //       id:pokemonId, 
-    //     };
-    //     return newPokemon;
-    //   });
-    // });
-  }
-
-  
-
-  
 }
