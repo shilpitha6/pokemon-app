@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="grid">
   <app-card-pokedex
     *ngFor="let p of pokemonSpecies"
@@ -8,6 +8,13 @@
   </app-card-pokedex>
 </div>
 
+<span>Length: {{pokemonSpecies.length}}</span>
+{{ pokemonSpecies | json }}
+<span *ngFor="let p of pokemonSpecies">looped</span> -->
 
 
-<span>test guhjerf {{pokemonSpecies.length}}</span>
+<div *ngIf="pokemonSpecies$ | async as mypokemon; else loading">
+  {{ mypokemon.length }} items
+  <div *ngFor="let p of mypokemon">{{ p.name }}</div>
+</div>
+<ng-template #loading>Loading...</ng-template>

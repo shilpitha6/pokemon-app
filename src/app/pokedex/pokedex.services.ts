@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,11 @@ export class PokedexService {
   constructor(private http: HttpClient) {}
 // takes generationid using apiUrl 
   getPokemonByGeneration(genId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${genId}`);
+    return this.http.get(`${this.apiUrl}/${genId}`).pipe(map((res: any) => {
+        return res.pokemon_species.map((x: any) => {
+          return {name: x.name, id: x.url.slice(0, -1).split('/').pop() }
+        })
+      }));
   }
 
 
