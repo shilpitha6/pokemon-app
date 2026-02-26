@@ -12,6 +12,7 @@ export class PokedexService {
 
   constructor(private http: HttpClient) {}
 // takes generationid using apiUrl 
+//I moved the mapping to here so we do not need to map in the component and can store this observable directly
   getPokemonByGeneration(genId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${genId}`).pipe(map((res: any) => {
         return res.pokemon_species.map((x: any) => {
