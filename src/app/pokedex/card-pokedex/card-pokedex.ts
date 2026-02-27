@@ -19,6 +19,9 @@ export class CardPokedex implements OnInit {
     types: { type: string; color: string }[], 
     spriteUrl: string }>;
 
+    //These would probably work better as css classes in this scenrio, but this would be useful in
+    //other scenarios where we may need to have these values in the component.
+    //Somwhere like a constants file
   TYPE_COLORS: { [key: string]: string } = {
     fire: '#EE8130',
     water: '#6390F0',
@@ -46,6 +49,7 @@ export class CardPokedex implements OnInit {
     if (this.name) {
       this.pokemonTypes$ = this.pokedexService.getPokemonTypes(this.name).pipe(
         map(res => ({
+          //CSS avoids having to do the color lookup 
           types: res.types.map((t: any) => ({
             type: t.type,
             color: this.TYPE_COLORS[t.type] || '#777'
