@@ -1,4 +1,4 @@
-import { Generations } from "../generations/generations";
+import { Generations } from "./generations";
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -10,10 +10,14 @@ import { Observable } from "rxjs";
 export class GenerationsService {
     
 
-    private apiUrl='https://pokeapi.co/api/v2/generation';
+    private apiUrl='https://pokeapi.co/api/v2';
 
     constructor(private http:HttpClient){
 
+    }
+
+    getGenerations():Observable<any>{
+        return this.http.get(this.apiUrl);
     }
 
     GenerationsbyId(id: string):Observable<any>

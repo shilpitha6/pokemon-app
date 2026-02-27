@@ -1,8 +1,12 @@
 
 import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 
+
+interface generations{
+  name:string;
+}
 
 @Component({
   selector: 'app-generations',

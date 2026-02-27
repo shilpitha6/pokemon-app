@@ -16,46 +16,23 @@ export class CardPokedex implements OnInit {
   @Input() id!: number;
 
   pokemonTypes$!: Observable<{ 
-    types: { type: string; color: string }[], 
+    types: string [], 
     spriteUrl: string }>;
 
     //These would probably work better as css classes in this scenrio, but this would be useful in
     //other scenarios where we may need to have these values in the component.
     //Somwhere like a constants file
-  TYPE_COLORS: { [key: string]: string } = {
-    fire: '#EE8130',
-    water: '#6390F0',
-    grass: '#7AC74C',
-    electric: '#F7D02C',
-    normal: '#A8A77A',
-    ice: '#96D9D6',
-    fighting: '#C22E28',
-    poison: '#A33EA1',
-    ground: '#E2BF65',
-    flying: '#A98FF3',
-    psychic: '#F95587',
-    bug: '#A6B91A',
-    rock: '#B6A136',
-    ghost: '#735797',
-    dragon: '#6F35FC',
-    dark: '#705746',
-    steel: '#B7B7CE',
-    fairy: '#D685AD',
-  };
-
+  
   constructor(private pokedexService: PokedexService) {}
 
   ngOnInit(): void {
     if (this.name) {
-      this.pokemonTypes$ = this.pokedexService.getPokemonTypes(this.name).pipe(
-        map(res => ({
-          //CSS avoids having to do the color lookup 
-          types: res.types.map((t: any) => ({
-            type: t.type,
-            color: this.TYPE_COLORS[t.type] || '#777'
-          })),
-          spriteUrl: res.sprites.front_default || ''
-        }))
+      this.pokemonTypes$ = this.pokedexService.getPokemonTypes(this.name)
+       .pipe(map(res => ({
+          types: res.types.map((t: any) => t.type.name),
+           spriteUrl: res.sprites.front_default || ''
+          }))
+         
       );
     }
   }

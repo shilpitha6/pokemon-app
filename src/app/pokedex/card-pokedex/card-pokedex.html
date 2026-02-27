@@ -3,7 +3,7 @@
   <b>{{ id }}</b>
 
   <img 
-    *ngIf="pokemon.spriteUrl"
+
     [src]="pokemon.spriteUrl"
     [alt]="name"
     class="pokemon-sprite"
@@ -11,13 +11,13 @@
 
   <b>{{ name | titlecase }}</b>
 
-  <div class="types" [ngClass]="pokemon.types.length === 1 ? 'single' : 'double'">
+  <div class="types" [ngClass]="pokemon.types.length > 1 ? 'double' : 'single'">
     <span 
-      *ngFor="let t of pokemon.types"
-      [style.background]="t.color"
+      *ngFor="let type of pokemon.types"
       class="type-badge"
+      [ngClass]="'type-' + type"
     >
-      {{ t.type }}
+      {{ type }}
     </span>
   </div>
 

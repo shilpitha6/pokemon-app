@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { GenerationsService } from './generations.services';
-import { Generations } from '../generations/generations';
+import { GenerationsService } from '../generations.services';
+import { Generations } from '../generations';
 
 @Component({
   selector: 'app-gen-id',
@@ -21,7 +21,7 @@ main_region: any;
 // loads the generations
   constructor(private route: ActivatedRoute,
     private generationservice: GenerationsService) {
-    this.route.paramMap.subscribe(params => {
+    route.paramMap.subscribe(params => {
       this.id = params.get('id');
       console.log(this.id);
 

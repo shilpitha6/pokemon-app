@@ -5,7 +5,7 @@ import { Berries } from './berries/berries';
 import { Encounters } from './encounters/encounters';
 import { Abilities } from './abilities/abilities';
 import { Pokedex } from './pokedex/pokedex';
-import { GenId } from './gen-id/gen-id';
+import { GenId } from './generations/gen-id/gen-id';
 
 
 

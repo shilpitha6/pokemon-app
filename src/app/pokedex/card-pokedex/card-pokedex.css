@@ -20,21 +20,39 @@
 
 .types {
   display: flex;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.types.single {
-  justify-content: center;
+.types.single { justify-content: center; }
+.types.double { justify-content: space-between; }
+
+.type-badge {
+  padding: 5px 10px;
+  color: rgb(12, 11, 11);
+  font-size: 0.85rem; 
 }
 
-.types.double {
-  justify-content: space-between;
-}
+.type-fire { background-color: #EE8130; }
+.type-water { background-color: #6390F0; }
+.type-grass { background-color: #7AC74C; }
+.type-electric { background-color: #F7D02C; }
+.type-normal { background-color: #A8A77A; }
+.type-ice { background-color: #96D9D6; }
+.type-fighting { background-color: #C22E28; }
+.type-poison { background-color: #A33EA1; }
+.type-ground { background-color: #E2BF65; }
+.type-flying { background-color: #A98FF3; }
+.type-psychic { background-color: #F95587; }
+.type-bug { background-color: #A6B91A; }
+.type-rock { background-color: #B6A136; }
+.type-ghost { background-color: #735797; }
+.type-dragon { background-color: #6F35FC; }
+.type-dark { background-color: #705746; }
+.type-steel { background-color: #B7B7CE; }
+.type-fairy { background-color: #D685AD; }
 
 
-.grid {
-  padding: 30px 30px;
-}
 
 
 

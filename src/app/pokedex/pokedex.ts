@@ -24,9 +24,9 @@ export class Pokedex implements OnInit {
     private pokedexService: PokedexService,
     private route: ActivatedRoute
   ) {
-    this.pokemonSpecies$ = this.pokedexService.getPokemonByGeneration(this.genId);
-
-    this.route.paramMap.subscribe(params => {
+    this.pokemonSpecies$ =this.pokedexService
+    .getPokemonByGeneration(this.genId);
+      route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
         this.genId = +id;

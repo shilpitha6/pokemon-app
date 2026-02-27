@@ -33,9 +33,7 @@ export class PokedexService {
       .pipe(
         map((res: any) => {
           return {
-            types: res.types.map((t: any) => ({
-              type: t.type.name
-            })),
+            types: res.types,
             sprites: {
               front_default: res.sprites.front_default
             }
