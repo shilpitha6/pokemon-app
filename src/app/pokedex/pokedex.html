@@ -30,6 +30,10 @@ else loading">
 </app-card-pokedex>
 </div>
 
-
+<div class="pagination">
+  <button (click)="prevPage()">Previous</button>
+  <span>Page {{ currentPage }}</span>
+  <button (click)="nextPage()">Next</button>
+</div>
 
 <ng-template #loading>Loading...</ng-template>

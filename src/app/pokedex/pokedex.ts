@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokedexService } from './pokedex.services';
 import { CardPokedex } from './card-pokedex/card-pokedex';
@@ -8,68 +8,69 @@ import { map, Observable } from 'rxjs';
 @Component({
   selector: 'app-pokedex',
   standalone: true,
-  imports: [ 
-    CommonModule, 
-    CardPokedex],
+  imports: [CommonModule, CardPokedex],
   templateUrl: './pokedex.html',
   styleUrl: './pokedex.css',
 })
-
 export class Pokedex implements OnInit {
-  pokemonSpecies: any[] = [];
+
   pokemonSpecies$: Observable<any>;
   genId: number = 1;
-  
 
-    constructor(
-    //service are used to call apis
+  currentPage: number = 1;
+  limit: number = 20;
+
+  constructor(
     private pokedexService: PokedexService,
-    //used to read Url parameters
     private route: ActivatedRoute
   ) {
-      this.pokemonSpecies$ =this.pokedexService
-      .getPokemonByGeneration(this.genId);
-      route.paramMap.subscribe(params => {
+    this.pokemonSpecies$ = this.pokedexService.getPokemonByGeneration(this.genId);
+
+    this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      //converting id(string) to number and 
-      // fetch the pokedex of that generation
       if (id) {
         this.genId = +id;
-        this.pokemonSpecies$ = this.pokedexService.
-        getPokemonByGeneration(this.genId);
-        return;
-      }
-      else{
-        console.log('no id provided');
+        this.loadPokemon();
       }
     });
   }
 
   ngOnInit(): void {
-
-    // to extarct id
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
 
-      //converting id(string) to number and 
-      // fetch the pokedex of that generation
       if (id) {
         this.genId = +id;
-        this.pokemonSpecies$=
-        this.pokedexService.getPokemonByGeneration(this.genId)
-        .pipe(
-          map((pokemonArray: any[]) =>
-            pokemonArray.sort((a, b) => a.id - b.id)
-          )
-        );
-        // console.log(this.genId);
-      }
-      else{
-        console.log('no id provided');
+        this.loadPokemon();
       }
     });
-
   }
 
- 
+
+  loadPokemon() {
+    this.pokemonSpecies$ = this.pokedexService
+      .getPokemonByGeneration(this.genId)
+      .pipe(
+        map((pokemonArray: any[]) =>
+          pokemonArray
+            .sort((a, b) => a.id - b.id) 
+            .slice(
+              (this.currentPage - 1) * this.limit,
+              this.currentPage * this.limit
+            ) 
+        )
+      );
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.loadPokemon();
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadPokemon();
+    }
+  }
 }
