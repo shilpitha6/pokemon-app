@@ -17,12 +17,12 @@ export class GenerationsService {
     }
 
     getGenerations():Observable<any>{
-        return this.http.get(this.apiUrl);
+        return this.http.get(`${this.apiUrl}/generation`);
     }
 
     GenerationsbyId(id: string):Observable<any>
 {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get(`${this.apiUrl}/generation/${id}`);
 }   
 }
 

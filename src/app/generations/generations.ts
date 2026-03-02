@@ -1,12 +1,9 @@
 
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { GenerationsService } from './generations.services';
 
-
-interface generations{
-  name:string;
-}
 
 @Component({
   selector: 'app-generations',
@@ -16,10 +13,27 @@ interface generations{
   styleUrl: './generations.css',
 })
 
-export class Generations   {
+export class Generations implements OnInit {
 
+  generations: any[] = [];
 
+  constructor(private genService: GenerationsService) {}
+
+  ngOnInit(): void {
+    this.loadGenerations();
   }
+
+  loadGenerations() {
+    this.genService.getGenerations().subscribe((data: any) => {
+      this.generations = data.results;
+    });
+  }
+
+
+  getGenId(url: string): string {
+    return url.split('/').filter(Boolean).pop() ?? '';
+  }
+}
 
   
 
